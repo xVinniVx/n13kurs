@@ -11,10 +11,7 @@ export const ProductCardInfo = ({
 	return (
 		<div className="mt-4 justify-center px-5 pb-5 text-center">
 			<p className=" text-sm tracking-tight text-gray-500">{category}</p>
-			<a href="#">
-				<h5 className="text-xl tracking-tight text-slate-900">{title}</h5>
-			</a>
-
+			<h5 className="text-xl tracking-tight text-slate-900">{title}</h5>
 			<div className="mb-3 mt-2 flex justify-center">
 				<svg
 					aria-hidden="true"
