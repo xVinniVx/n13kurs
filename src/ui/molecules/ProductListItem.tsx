@@ -10,7 +10,7 @@ export const ProductListItem = ({ product }: ProductListItemProps) => {
 	return (
 		<li className="m-4 rounded bg-white">
 			<article>
-				<ProductCardImage alt={product.image.alt} src={product.image.src} />
+				<ProductCardImage alt={product.title} src={product.image} />
 				<ProductCardInfo product={product} />
 			</article>
 		</li>
