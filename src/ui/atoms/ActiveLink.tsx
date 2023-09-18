@@ -11,7 +11,7 @@ export const ActiveLink = ({ href, children }: { href: string; children: ReactNo
 	return (
 		<Link
 			href={href}
-			className={clsx(`font-semibold hover:text-purple-700 hover:underline`, {
+			className={clsx(`font-semibold underline-offset-4 hover:text-red-400 hover:underline`, {
 				underline: isActive,
 			})}
 		>

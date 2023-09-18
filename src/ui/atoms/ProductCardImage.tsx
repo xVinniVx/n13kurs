@@ -1,11 +1,11 @@
 export const ProductCardImage = ({ src, alt }: { src: string; alt: string }) => {
 	return (
-		<img
-			width={320}
-			height={320}
-			alt={alt}
-			src={src}
-			className="h-full max-h-80 w-full object-cover object-center p-4 transition-transform hover:scale-105"
-		/>
+		<div className="h-72">
+			<img
+				alt={alt}
+				src={src}
+				className="h-full max-h-96 w-full object-contain object-center transition-transform hover:scale-105"
+			/>
+		</div>
 	);
 };
