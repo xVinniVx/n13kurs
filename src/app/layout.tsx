@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Jost } from "next/font/google";
 import React from "react";
 import { Navbar } from "@/ui/organisms/NavBar";
-import { getProductsList } from "@/api/products";
+//import { getProductsList } from "@/api/products";
 import { pageDescription, pageTitle } from "@/app/globalVariables";
 
 const jost = Jost({ subsets: ["latin-ext"], display: "swap" });
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-	const products = await getProductsList();
+	// const products = await getProductsList();
 	return (
 		<html lang="pl">
 			<body className={jost.className}>
