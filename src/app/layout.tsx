@@ -2,7 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Jost } from "next/font/google";
 import React from "react";
-import { ActiveLink } from "@/ui/atoms/ActiveLink";
 import { Navbar } from "@/ui/organisms/NavBar";
 import { getProductsList } from "@/api/products";
 import { pageDescription, pageTitle } from "@/app/globalVariables";
