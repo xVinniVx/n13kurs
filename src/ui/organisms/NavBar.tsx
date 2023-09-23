@@ -68,72 +68,77 @@ export const Navbar = () => {
 						</svg>
 					</span>
 				</button>
-				<ul className="absolute left-0 z-40 hidden min-h-screen w-60 bg-white p-4 font-semibold lg:relative lg:flex lg:min-h-0 lg:w-4/12 lg:flex-row lg:gap-6">
-					<li className="flex flex-row items-center justify-between py-2">
-						<span>
-							<ActiveLink href="/">HOME</ActiveLink>
-						</span>
-						<svg
-							fill="currentColor"
-							stroke="currentColor"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 256 512"
-							className="h-4 w-4 justify-end lg:hidden"
-						>
-							<path d="M17.525 36.465l-7.071 7.07c-4.686 4.686-4.686 12.284 0 16.971L205.947 256 10.454 451.494c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l211.051-211.05c4.686-4.686 4.686-12.284 0-16.971L34.495 36.465c-4.686-4.687-12.284-4.687-16.97 0z"></path>
-						</svg>
-					</li>
-					<li className="flex flex-row items-center justify-between py-2">
-						<span>
-							<ActiveLink href="/products">ALL</ActiveLink>
-						</span>
-						<svg
-							fill="currentColor"
-							stroke="currentColor"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 256 512"
-							className="h-4 w-4 justify-end lg:hidden"
-						>
-							<path d="M17.525 36.465l-7.071 7.07c-4.686 4.686-4.686 12.284 0 16.971L205.947 256 10.454 451.494c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l211.051-211.05c4.686-4.686 4.686-12.284 0-16.971L34.495 36.465c-4.686-4.687-12.284-4.687-16.97 0z"></path>
-						</svg>
-					</li>
-					<li className="flex flex-row items-center justify-between py-2">
-						<span>Kobieta</span>
-						<svg
-							fill="currentColor"
-							stroke="currentColor"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 256 512"
-							className="h-4 w-4 justify-end lg:hidden"
-						>
-							<path d="M17.525 36.465l-7.071 7.07c-4.686 4.686-4.686 12.284 0 16.971L205.947 256 10.454 451.494c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l211.051-211.05c4.686-4.686 4.686-12.284 0-16.971L34.495 36.465c-4.686-4.687-12.284-4.687-16.97 0z"></path>
-						</svg>
-					</li>
-					<li className="flex flex-row items-center justify-between py-2">
-						<span>Mężczyzna</span>
-						<svg
-							fill="currentColor"
-							stroke="currentColor"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 256 512"
-							className="h-4 w-4 justify-end lg:hidden"
-						>
-							<path d="M17.525 36.465l-7.071 7.07c-4.686 4.686-4.686 12.284 0 16.971L205.947 256 10.454 451.494c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l211.051-211.05c4.686-4.686 4.686-12.284 0-16.971L34.495 36.465c-4.686-4.687-12.284-4.687-16.97 0z"></path>
-						</svg>
-					</li>
-					<li className="flex flex-row items-center justify-between py-2">
-						<span>Akcesoria</span>
-						<svg
-							fill="currentColor"
-							stroke="currentColor"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 256 512"
-							className="h-4 w-4 justify-end lg:hidden"
-						>
-							<path d="M17.525 36.465l-7.071 7.07c-4.686 4.686-4.686 12.284 0 16.971L205.947 256 10.454 451.494c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l211.051-211.05c4.686-4.686 4.686-12.284 0-16.971L34.495 36.465c-4.686-4.687-12.284-4.687-16.97 0z"></path>
-						</svg>
-					</li>
-				</ul>
+				<nav
+					role="navigation"
+					className="absolute left-0 z-40 hidden min-h-screen w-60 bg-white p-4 font-semibold lg:relative lg:flex lg:min-h-0 lg:w-4/12 lg:flex-row "
+				>
+					<ul className="flex flex-col py-2 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+						<li className="">
+							<span>
+								<ActiveLink href="/">HOME</ActiveLink>
+							</span>
+							<svg
+								fill="currentColor"
+								stroke="currentColor"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 256 512"
+								className="h-4 w-4 justify-end lg:hidden"
+							>
+								<path d="M17.525 36.465l-7.071 7.07c-4.686 4.686-4.686 12.284 0 16.971L205.947 256 10.454 451.494c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l211.051-211.05c4.686-4.686 4.686-12.284 0-16.971L34.495 36.465c-4.686-4.687-12.284-4.687-16.97 0z"></path>
+							</svg>
+						</li>
+						<li className="flex flex-row items-center justify-between py-2">
+							<span>
+								<ActiveLink href="/products">ALL</ActiveLink>
+							</span>
+							<svg
+								fill="currentColor"
+								stroke="currentColor"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 256 512"
+								className="h-4 w-4 justify-end lg:hidden"
+							>
+								<path d="M17.525 36.465l-7.071 7.07c-4.686 4.686-4.686 12.284 0 16.971L205.947 256 10.454 451.494c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l211.051-211.05c4.686-4.686 4.686-12.284 0-16.971L34.495 36.465c-4.686-4.687-12.284-4.687-16.97 0z"></path>
+							</svg>
+						</li>
+						<li className="flex flex-row items-center justify-between py-2">
+							<span>Kobieta</span>
+							<svg
+								fill="currentColor"
+								stroke="currentColor"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 256 512"
+								className="h-4 w-4 justify-end lg:hidden"
+							>
+								<path d="M17.525 36.465l-7.071 7.07c-4.686 4.686-4.686 12.284 0 16.971L205.947 256 10.454 451.494c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l211.051-211.05c4.686-4.686 4.686-12.284 0-16.971L34.495 36.465c-4.686-4.687-12.284-4.687-16.97 0z"></path>
+							</svg>
+						</li>
+						<li className="flex flex-row items-center justify-between py-2">
+							<span>Mężczyzna</span>
+							<svg
+								fill="currentColor"
+								stroke="currentColor"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 256 512"
+								className="h-4 w-4 justify-end lg:hidden"
+							>
+								<path d="M17.525 36.465l-7.071 7.07c-4.686 4.686-4.686 12.284 0 16.971L205.947 256 10.454 451.494c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l211.051-211.05c4.686-4.686 4.686-12.284 0-16.971L34.495 36.465c-4.686-4.687-12.284-4.687-16.97 0z"></path>
+							</svg>
+						</li>
+						<li className="flex flex-row items-center justify-between py-2">
+							<span>Akcesoria</span>
+							<svg
+								fill="currentColor"
+								stroke="currentColor"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 256 512"
+								className="h-4 w-4 justify-end lg:hidden"
+							>
+								<path d="M17.525 36.465l-7.071 7.07c-4.686 4.686-4.686 12.284 0 16.971L205.947 256 10.454 451.494c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l211.051-211.05c4.686-4.686 4.686-12.284 0-16.971L34.495 36.465c-4.686-4.687-12.284-4.687-16.97 0z"></path>
+							</svg>
+						</li>
+					</ul>
+				</nav>
 				{/*<div className="relative mt-4 text-gray-600  sm:mt-0 md:w-2/6">*/}
 				{/*	<input*/}
 				{/*		type="search"*/}

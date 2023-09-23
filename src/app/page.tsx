@@ -20,7 +20,7 @@ export default function HomePage() {
 				title={"Bestsellery miesiąca"}
 				text={"Na tych produktach zarobiliśmy najwięcej!"}
 			/>
-			<SuggestedProducts />
+			{/*<SuggestedProducts />*/}
 			<SectionHeader title={"Nasz blog"} text={"Nikt normalny tego nie czyta, no ale SEO..."} />
 			<BlogBoxList />
 		</>
