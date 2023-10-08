@@ -24,9 +24,10 @@ export const mapRatingsListByProductGraphQLDataToRatingItemType = (
 			name: attributes.name || "",
 			email: attributes.email || "",
 			title: attributes.title || "",
-			comment: attributes.content || "",
+			content: attributes.content || "",
 			rating: attributes.rating,
-			count: data.ratings?.meta.pagination.total || 0,
+			createdAt: "",
+			//count: data.ratings?.meta.pagination.total || 0,
 		};
 	});
 };

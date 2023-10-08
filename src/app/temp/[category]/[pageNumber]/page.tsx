@@ -13,3 +13,7 @@
 // 		</h1>
 // 	);
 // }
+
+export default function CategoryProductPage() {
+	return <h1>CategoryProductPage</h1>;
+}
