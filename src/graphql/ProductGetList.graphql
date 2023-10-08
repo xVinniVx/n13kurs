@@ -1,0 +1,34 @@
+query ProductGetList {
+    products {
+        data {
+            id
+            attributes {
+                name
+                slug
+                price
+                image {
+                    url
+                    altText
+                }
+                category {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                ratings {
+                    data {
+                        attributes {
+                            rating
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+

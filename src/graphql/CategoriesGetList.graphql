@@ -1,0 +1,15 @@
+query CategoriesGetList {
+    categories {
+        data {
+            id
+            attributes {
+                name
+                slug
+            }
+        }
+    }
+}
+
+
+
+

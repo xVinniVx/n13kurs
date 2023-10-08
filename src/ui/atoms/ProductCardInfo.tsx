@@ -1,27 +1,24 @@
-import { type ProductItemType } from "@/ui/types";
+import { type ProductListItemsType } from "@/ui/types";
 import { formatPrice } from "@/ui/utils";
-import { RatingStar } from "@/ui/atoms/RatingStar";
 
 type ProductCardInfoProps = {
-	product: ProductItemType;
+	product: ProductListItemsType;
 };
 
-export const ProductCardInfo = ({
-	product: { title, category, rating, oldPrice, price },
-}: ProductCardInfoProps) => {
+export const ProductCardInfo = ({ product: { name, category, price } }: ProductCardInfoProps) => {
 	return (
 		<div className="mt-4 justify-center px-5 pb-5 text-center">
 			<p className=" text-sm tracking-tight text-gray-500">{category}</p>
-			<h3 className="text-xl tracking-tight text-slate-900">{title}</h3>
-			<RatingStar rating={rating.rate} />
+			<h3 className="text-xl tracking-tight text-slate-900">{name}</h3>
+			{/*<RatingStar rating={rating.rate} />*/}
 			<span className="inline-block pr-2 text-3xl font-semibold text-slate-900">
 				{formatPrice(price / 100)}
 			</span>
-			{oldPrice > 0 ? (
-				<span className="inline-block align-middle text-sm text-slate-900 line-through">
-					{formatPrice(oldPrice / 100)}
-				</span>
-			) : null}
+			{/*{oldPrice > 0 ? (*/}
+			{/*	<span className="inline-block align-middle text-sm text-slate-900 line-through">*/}
+			{/*		{formatPrice(oldPrice / 100)}*/}
+			{/*	</span>*/}
+			{/*) : null}*/}
 			{/*<a*/}
 			{/*	href="#"*/}
 			{/*	className="mt-3 flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"*/}

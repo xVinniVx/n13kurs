@@ -21,14 +21,21 @@ export const ActiveLink = <T extends string>({
 	exact = true,
 }: ActiveLinkProps<T>) => {
 	const pathname = usePathname();
-	//console.log("Pathname: " + pathname);
-	//console.log("Href: " + href);
+	// console.log("------------------");
+	// console.log("Pathname: " + pathname);
+	// console.log("Href: " + href);
 	const stringPathname = typeof href === "object" ? href.pathname || "" : href;
-	//console.log("stringPathname: " + stringPathname);
+	// console.log("stringPathname: " + stringPathname);
 	const isActive = exact ? pathname === stringPathname : pathname.includes(stringPathname);
 	//console.log("isActive: " + isActive);
+
 	return (
-		<Link className={clsx(className, isActive && activeClassName)} href={href} role="link">
+		<Link
+			className={clsx(className, isActive && activeClassName)}
+			href={href}
+			role="link"
+			{...(isActive ? { "aria-current": "page" } : {})}
+		>
 			{children}
 		</Link>
 	);

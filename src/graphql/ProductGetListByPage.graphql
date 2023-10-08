@@ -1,0 +1,38 @@
+query ProductGetListByPage($page: Int!, $pageSize:Int!) {
+    products(pagination:{page:$page, pageSize: $pageSize}) {
+        data {
+            id
+            attributes {
+                name
+                slug
+                price
+                image {
+                    url
+                    altText
+                }
+                category {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                ratings {
+                    data {
+                        attributes {
+                            rating
+                        }
+                    }
+                }
+            }
+        }
+        meta {
+            pagination {
+                total
+                page
+                pageSize
+                pageCount
+            }
+        }
+    }
+}

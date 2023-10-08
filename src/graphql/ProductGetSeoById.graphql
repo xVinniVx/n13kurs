@@ -1,0 +1,15 @@
+query ProductGetSeoById($id: ID!) {
+    product(id: $id) {
+        data {
+            id
+            attributes {
+                name
+                shortDescription
+                seo {
+                    seoTitle
+                    seoDescription
+                }
+            }
+        }
+    }
+}

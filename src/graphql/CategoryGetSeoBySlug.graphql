@@ -1,0 +1,15 @@
+query CategoryGetSeoBySlug($slug: String!) {
+    categories(filters: { slug: { eq: $slug } }) {
+        data {
+            id
+            attributes {
+                name
+                description
+                seo {
+                    seoTitle
+                    seoDescription
+                }
+            }
+        }
+    }
+}

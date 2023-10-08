@@ -1,0 +1,38 @@
+query ProductsGetListByCategory($slug: String!, $page: Int!, $pageSize:Int!) {
+    products(filters: {category: {slug: {eq: $slug}}}, pagination:{page:$page, pageSize: $pageSize}) {
+        data {
+            id
+            attributes {
+                name
+                slug
+                price
+                image {
+                    url
+                    altText
+                }
+                category {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                ratings {
+                    data {
+                        attributes {
+                            rating
+                        }
+                    }
+                }
+            }
+        }
+        meta {
+            pagination {
+                total
+                page
+                pageSize
+                pageCount
+            }
+        }
+    }
+}

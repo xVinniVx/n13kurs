@@ -1,100 +1,191 @@
-import { type ProductItemType } from "@/ui/types";
+//import { headers } from "next/headers";
+import {
+	type ProductGetListPaginationGraphQLData,
+	type ProductItemByIdGraphQLData,
+	type ProductItemType,
+	type ProductListByPageGraphQLData,
+	type ProductListItemsType,
+	type ProductListPaginationType,
+	type ProductSeoByIdGraphQLData,
+	type RatingItemType,
+	type Seo,
+} from "@/ui/types";
+import { executeGraphQL } from "@/api/graphql";
+import {
+	ProductGetByIdDocument,
+	ProductGetListByPageDocument,
+	ProductGetListBySearchDocument,
+	ProductGetPaginationByPageDocument,
+	ProductGetSeoByIdDocument,
+	ProductsGetListByCategoryDocument,
+} from "@/gql/graphql";
 
-type ProductResponseItemType = {
-	id: string;
-	title: string;
-	price: number;
-	description: string;
-	category: string;
-	rating: {
-		rate: number;
-		count: number;
-	};
-	image: string;
-	longDescription: string;
+export const getProductsListByPage = async (
+	quantity: number,
+	page: number,
+): Promise<ProductListItemsType[]> => {
+	const apiData = (await executeGraphQL(ProductGetListByPageDocument, {
+		page: page,
+		pageSize: quantity,
+	})) as ProductListByPageGraphQLData;
+
+	return mapProductListByPageGraphQLDataToProductListItemsType(apiData);
 };
 
-// type Product = {
-// 	// Definiuj strukturę obiektu Product zgodnie z danymi z API
-// 	// Na przykład:
-// 	id: number;
-// 	name: string;
-// 	// itd.
-// };
-
-type ApiResponse = {
-	products: ProductResponseItemType[]; // Zakładam, że odpowiedź zawiera pole 'products' typu Product[]
+export const getProductsListPaginationByPage = async (
+	quantity: number,
+	page: number,
+): Promise<ProductListPaginationType> => {
+	const apiData = (await executeGraphQL(ProductGetPaginationByPageDocument, {
+		page: page,
+		pageSize: quantity,
+	})) as ProductGetListPaginationGraphQLData;
+	return mapProductListByPageGraphQLDataToProductListPaginationType(apiData);
 };
 
-export const getProductsList = async () => {
-	const res = await fetch("https://naszsklep-api.vercel.app/api/products");
-	const productsResponse = (await res.json()) as ProductResponseItemType[];
-	return productsResponse.map((product) => productResponseItemToProductItemType(product));
-	//return productResponseItemToProductItemType(productsResponse);
+export const getProductsListBySearch = async (
+	search: string,
+	quantity: number,
+	page: number,
+): Promise<ProductListItemsType[]> => {
+	const apiData = (await executeGraphQL(ProductGetListBySearchDocument, {
+		search: search,
+		page: page,
+		pageSize: quantity,
+	})) as ProductListByPageGraphQLData;
+	return mapProductListByPageGraphQLDataToProductListItemsType(apiData);
 };
 
-export const getProductById = async (id: ProductResponseItemType["id"]) => {
-	const res = await fetch(`https://naszsklep-api.vercel.app/api/products/${id}`);
-	const productResponse = (await res.json()) as ProductResponseItemType;
-	//return productResponse.map((product) => productResponseItemToProductItemType(product));
-	return productResponseItemToProductItemType(productResponse);
-	//return productsResponse.map((product) => productResponseItemToProductItemType(product));
-	//lub skrótem:
-	//return productsResponse.map(productResponseItemToProductItemType);
+export const getProductById = async (id: string): Promise<ProductItemType> => {
+	const apiData = (await executeGraphQL(ProductGetByIdDocument, {
+		id: id,
+	})) as ProductItemByIdGraphQLData;
+	return mapProductItemByIdGraphQLDataToProductItemType(apiData);
 };
 
-export const getProductsListByPage = async (quantity: number, page: number) => {
-	const offset = page - 1;
-	const res = await fetch(
-		`https://naszsklep-api.vercel.app/api/products?take=${quantity}&offset=${offset}`,
-	);
-	const productsResponse = (await res.json()) as ProductResponseItemType[];
-	return productsResponse.map((product) => productResponseItemToProductItemType(product));
+export const getProductSeoById = async (id: string): Promise<Seo> => {
+	const apiData = (await executeGraphQL(ProductGetSeoByIdDocument, {
+		id: id,
+	})) as ProductSeoByIdGraphQLData;
+	return mapProductSeoByIdGraphQLDataToSeo(apiData);
 };
 
-export const getTotalProductCount = async () => {
-	// try {
-	let totalProductCount = 0;
-	let offset = 0;
-	const take = 500; // Ilość produktów do pobrania za każdym razem
-	while (true) {
-		const response = await fetch(
-			`https://naszsklep-api.vercel.app/api/products?offset=${offset}&take=${take}`,
-		);
-		//console.log(response);
-		const data: ApiResponse = (await response.json()) as ApiResponse; // Przetwarzanie odpowiedzi jako JSON z określonym typem ApiResponse
-		//console.log(data);
-		const numberOfProperties = Object.keys(data).length;
-		//console.log("pobrano z api: " + numberOfProperties);
+export const getProductsListByCategory = async (
+	slug: string,
+	quantity: number,
+	page: number,
+): Promise<ProductListItemsType[]> => {
+	const apiData = (await executeGraphQL(ProductsGetListByCategoryDocument, {
+		slug: slug,
+		page: page,
+		pageSize: quantity,
+	})) as ProductListByPageGraphQLData;
+	return mapProductListByPageGraphQLDataToProductListItemsType(apiData);
+};
 
-		if (numberOfProperties === 0) {
-			break;
-		}
-		totalProductCount += numberOfProperties;
-		offset += take;
+export const mapProductListByPageGraphQLDataToProductListItemsType = (
+	data: ProductListByPageGraphQLData,
+): ProductListItemsType[] => {
+	if (!data.products || !data.products.data) {
+		return [];
 	}
-	return totalProductCount;
-	//console.log(`Liczba dostępnych produktów: ${totalProductCount}`);
-	// } catch (error) {
-	// 	console.error("Wystąpił błąd podczas pobierania danych:", error);
-	// }
+
+	if (!data.products || !data.products.meta) {
+		throw TypeError("Wrong data or no data for pagination");
+	}
+
+	return data.products.data.map((item) => {
+		const attributes = item.attributes;
+		const sum = attributes.ratings.data?.reduce((total, item) => total + item.attributes.rating, 0);
+
+		return {
+			id: String(item.id),
+			slug: attributes.slug || "",
+			name: attributes.name || "",
+			price: attributes.price,
+			category: attributes.category.data?.attributes?.name || "",
+			image: {
+				url: attributes.image.url || "",
+				altText: attributes.image.altText || "",
+			},
+			ratingsCount: attributes.ratings.data.length,
+			ratingsAvg: sum / attributes.ratings.data.length,
+			pagination: {
+				total: data.products?.meta.pagination.total || 0,
+				page: data.products?.meta.pagination.page || 1,
+				pageSize: data.products?.meta.pagination.pageSize || 1,
+				pageCount: data.products?.meta.pagination.pageCount || 0,
+			},
+		};
+	});
 };
 
-const productResponseItemToProductItemType = (
-	product: ProductResponseItemType,
-): ProductItemType => {
+export const mapProductListByPageGraphQLDataToProductListPaginationType = (
+	data: ProductGetListPaginationGraphQLData,
+): ProductListPaginationType => {
+	if (!data.products || !data.products.meta) {
+		throw TypeError("Wrong data or no data for pagination");
+	}
 	return {
-		id: product.id,
-		title: product.title,
-		price: product.price,
-		description: product.description,
-		category: product.category,
-		rating: {
-			rate: product.rating.rate,
-			count: product.rating.count,
-		},
-		image: product.image,
-		longDescription: product.longDescription,
-		oldPrice: 0,
+		total: data.products.meta.pagination.total,
+		page: data.products.meta.pagination.page,
+		pageSize: data.products.meta.pagination.pageSize,
+		pageCount: data.products.meta.pagination.pageCount,
 	};
+};
+
+export const mapProductItemByIdGraphQLDataToProductItemType = (
+	data: ProductItemByIdGraphQLData,
+): ProductItemType => {
+	if (data.product.data === null) {
+		throw TypeError("No data for product");
+	}
+
+	const attributes = data.product.data.attributes;
+
+	const sum = attributes.ratings.data?.reduce((total, item) => total + item.attributes.rating, 0);
+
+	const ratingsData = attributes.ratings.data.map((item): RatingItemType => {
+		return {
+			name: item.attributes.name,
+			email: item.attributes.email,
+			title: item.attributes.title,
+			content: item.attributes.content,
+			rating: item.attributes.rating,
+			createdAt: item.attributes.createdAt,
+		};
+	});
+
+	return {
+		id: String(data.product.data.id),
+		slug: attributes.slug || "",
+		name: attributes.name || "",
+		price: attributes.price,
+		image: {
+			url: attributes.image.url || "",
+			altText: attributes.image.altText || "",
+		},
+		shortDescription: attributes.shortDescription,
+		longDescription: attributes.longDescription,
+		seo: {
+			seoTitle: attributes.seo.seoTitle,
+			seoDescription: attributes.seo.seoDescription,
+		},
+		category: attributes.category.data?.attributes?.name || "",
+		ratings: JSON.stringify(ratingsData) || "",
+		ratingsCount: attributes.ratings.data.length,
+		ratingsAvg: sum / attributes.ratings.data.length,
+	};
+};
+
+export const mapProductSeoByIdGraphQLDataToSeo = (data: ProductSeoByIdGraphQLData): Seo => {
+	if (!data.product || !data.product.data) {
+		throw TypeError("No data for product");
+	} else {
+		return {
+			// seoTitle: data.product.data.attributes.seo?.seoTitle ?? data.product.data.attributes.name,
+			seoTitle: data.product.data.attributes.name,
+			seoDescription: data.product.data.attributes.shortDescription,
+		};
+	}
 };

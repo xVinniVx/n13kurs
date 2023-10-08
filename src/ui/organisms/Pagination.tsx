@@ -1,16 +1,17 @@
 import { PaginationItem } from "@/ui/atoms/PaginationItem";
+import type { ProductListPaginationType } from "@/ui/types";
 
 type PaginationProps = {
 	href: string;
-	totalProducts: number;
+	paginationData: ProductListPaginationType;
 	page: number;
 	text?: string;
 };
 
-export const Pagination = ({ href, totalProducts, page = 1, text }: PaginationProps) => {
-	const nextPage = page + 1;
-	const prevPage = page - 1;
-	const maxPage = Math.ceil(totalProducts / 20);
+export const Pagination = ({ href, paginationData, page = 1, text }: PaginationProps) => {
+	const nextPage = paginationData.page + 1;
+	const prevPage = paginationData.page - 1;
+	const maxPage = paginationData.pageCount;
 	return (
 		<>
 			<ul className="flex items-center justify-center gap-2" aria-label="pagination">
@@ -37,7 +38,7 @@ export const Pagination = ({ href, totalProducts, page = 1, text }: PaginationPr
 					</>
 				)}
 			</ul>
-			<p className="py-3 text-center text-sm">Produktów: {totalProducts}</p>
+			<p className="py-3 text-center text-sm">Produktów: {paginationData.total}</p>
 		</>
 	);
 };

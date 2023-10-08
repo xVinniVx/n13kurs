@@ -1,0 +1,12 @@
+query ProductGetPaginationByPage($page: Int!, $pageSize:Int!) {
+    products(pagination:{page:$page, pageSize: $pageSize}) {
+        meta {
+            pagination {
+                total
+                page
+                pageSize
+                pageCount
+            }
+        }
+    }
+}

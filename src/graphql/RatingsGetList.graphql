@@ -1,0 +1,19 @@
+query RatingsGetListByProduct($productId: ID!) {
+    ratings(filters: { product: { id: { eq: $productId } } }) {
+        meta {
+            pagination {
+                total
+            }
+        }
+        data {
+            id
+            attributes {
+                name
+                email
+                title
+                content
+                rating
+            }
+        }
+    }
+}

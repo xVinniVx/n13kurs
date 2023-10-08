@@ -1,8 +1,9 @@
-import { redirect } from "next/navigation";
+//import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { ProductList } from "@/ui/organisms/ProductList";
-import { getProductsListByPage, getTotalProductCount } from "@/api/products";
+import { getProductsListByPage, getProductsListPaginationByPage } from "@/api/products";
 import { Pagination } from "@/ui/organisms/Pagination";
+import { defaultProductCountPerPage } from "@/app/globalVariables";
 
 // wygeneruj 5 static listingów (dla testów sprawdzenia) + API testowe wywala się przy pobraniu wszystkich 211 podstron...
 export const generateStaticParams = async () => {
@@ -24,20 +25,22 @@ export const generateStaticParams = async () => {
 };
 
 export default async function ProductsPage({ params }: { params: { pageNumber: number } }) {
-	const pageNumber = params.pageNumber;
-	const products = await getProductsListByPage(20, pageNumber);
-	const totalProducts = await getTotalProductCount();
-
+	const pageNumber = Number(params.pageNumber);
+	const products = await getProductsListByPage(defaultProductCountPerPage, pageNumber);
+	const paginationData = await getProductsListPaginationByPage(
+		defaultProductCountPerPage,
+		pageNumber,
+	);
 	//wyświetlanie products/1 jest bez sensu....
-	if (pageNumber < 2) {
-		redirect("/products");
-	}
+	// if (pageNumber < 2) {
+	// 	redirect("/products");
+	// }
 
 	return (
 		<>
 			<ProductList products={products} />
 			<Suspense>
-				<Pagination href="/products" totalProducts={totalProducts} page={Number(pageNumber)} />
+				<Pagination href="/products" paginationData={paginationData} page={pageNumber} />
 			</Suspense>
 		</>
 	);

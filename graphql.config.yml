@@ -1,0 +1,2 @@
+schema: https://strapi-n13m.onrender.com/graphql
+documents: '**/*.graphql'

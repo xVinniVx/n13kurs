@@ -1,0 +1,13 @@
+query CollectionGetList {
+    collections {
+        data {
+            id
+            attributes {
+                name
+                slug
+                description
+                image
+            }
+        }
+    }
+}

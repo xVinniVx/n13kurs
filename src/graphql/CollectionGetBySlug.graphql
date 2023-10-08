@@ -1,0 +1,13 @@
+query CollectionGetBySlug($slug: String!) {
+    collections(filters: { slug: { eq: $slug } }) {
+        data {
+            id
+            attributes {
+                name
+                slug
+                description
+                image
+            }
+        }
+    }
+}

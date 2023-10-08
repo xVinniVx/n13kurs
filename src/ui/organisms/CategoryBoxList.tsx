@@ -1,6 +1,4 @@
 export const CategoryBoxList = async () => {
-	//const products = await getProductsList();
-	//await sleep(5000);
 	return (
 		<>
 			<div className="mx-auto my-10 flex max-w-screen-2xl flex-col items-center justify-between gap-2 lg:flex-row">
